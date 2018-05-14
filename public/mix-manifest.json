@@ -1,0 +1,18 @@
+{
+    "/js/jquery.mask.min.js": "/js/jquery.mask.min.js",
+    "/js/jquery-ui.min.js": "/js/jquery-ui.min.js",
+    "/js/main.js": "/js/main.js",
+    "/js/bootstrap.js": "/js/bootstrap.js",
+    "/js/fullcalendar/fullcalendar.js": "/js/fullcalendar/fullcalendar.js",
+    "/js/fullcalendar/moment.min.js": "/js/fullcalendar/moment.min.js",
+    "/js/fullcalendar/gcal.js": "/js/fullcalendar/gcal.js",
+    "/js/fullcalendar/locale-all.js": "/js/fullcalendar/locale-all.js",
+    "/js/jquery.datetimepicker.js": "/js/jquery.datetimepicker.js",
+    "/css/jquery-ui.min.css": "/css/jquery-ui.min.css",
+    "/css/jquery-ui.theme.min.css": "/css/jquery-ui.theme.min.css",
+    "/css/style.css": "/css/style.css",
+    "/css/fullcalendar.css": "/css/fullcalendar.css",
+    "/css/fullcalendar.print.css": "/css/fullcalendar.print.css",
+    "/css/bootstrap.css": "/css/bootstrap.css",
+    "/css/jquery.datetimepicker.min.css": "/css/jquery.datetimepicker.min.css"
+}
