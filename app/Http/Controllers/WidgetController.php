@@ -117,22 +117,16 @@ class WidgetController extends Controller
     
     
     public function getWorker(Request $request){
-        $input = $request->all();
-        $speciality = $request->input('speciality');
-        $branches[0]=(int)$request->input('branches');
-        $result = substr($speciality, 1, -1);
-        $idSpec = (explode(",", $result));
-        foreach ($idSpec AS $index => $value){
-            $arrSpec[$index] = (int)$value;   
-        }
+        $branches[]=(int)$request->input('branches');
+        $speciality[] = (int)$request->input('speciality');
         
         $query = (new Timetable\Api\Query\WorkersQuery())
-        ->branches($branches)
-        ->specialties($arrSpec);
+            ->branches($branches)
+            ->specialties($speciality);
         
-        $timetables = $this->client->query($query);
-        $myJSON = json_encode($timetables);
-        echo $myJSON;
+        $response = $this->client->query($query);
+        
+        echo json_encode($response);
     }
     
     public function addClint(Request $request){
@@ -162,6 +156,3 @@ class WidgetController extends Controller
         echo $order->id;
     }
 }
-
-
-?>
