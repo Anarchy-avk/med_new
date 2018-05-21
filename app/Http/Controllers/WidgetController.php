@@ -46,7 +46,22 @@ class WidgetController extends Controller
      	$pdf = PDF::loadView('widget.talon', $data);
         return $pdf->stream('document.pdf');
 	}
+      public function  generatePdfdownload(Request $request) 
+	{
+	 
+		$data = [
+			'order'    => $request->get('order'),
+            'filial'   => $request->get('filial'),
+            'spec'     => $request->get('spec'),
+            'time'     => $request->get('time'),
+            'qRcode'   => Config::get('app.url').'/qrcode?text='.$request->get('order')
+		];
+
+     	$pdf = PDF::loadView('widget.talon', $data);
+        echo $pdf->download('talon.pdf');
+	}  
     
+   
     public function getBranch(){
 
         $query = (new Timetable\Api\Query\BranchesQuery())->wantFields('id', 'code', ['description' => ['name']]);
@@ -60,7 +75,16 @@ class WidgetController extends Controller
 
         $query = (new Timetable\Api\Query\SpecialtiesQuery())->wantFields('id', 'code', 'name');
         $timetables = $this->client->query($query);
-        $myJSON = json_encode($timetables);
+        $arraySpec=[];
+        foreach ($timetables AS $index => $value){
+            $arraySpec[$value->name]=array(
+               'id'   =>$value->id,
+               'code' =>$value->code,
+               'name' =>$value->name,
+            );
+        }
+        ksort($arraySpec);
+        $myJSON = json_encode($arraySpec);
 
         echo $myJSON;
     }

@@ -22,14 +22,16 @@ $( function() {
   
             $.get("/specialties", function (data, status) {
                 var obj = $.parseJSON(data);
+                console.log(obj);
                 select = document.getElementById('speciality');
-                for (var i = 0; i < obj.length; i++) {
+                jQuery.each(obj, function(k, val) {
                     var opt = document.createElement('option');
-                    opt.value = obj[i].id;
-                    opt.innerHTML = obj[i].name;
+                    opt.value = val.id;
+                    opt.innerHTML = val.name;
                     select.appendChild(opt);
-                }
 
+                });
+               
                                  calendar=$('#calendar').fullCalendar({
                                       header: {
                                         left: 'prev,next',
@@ -249,8 +251,9 @@ $( function() {
                     $('.step3').show();
                     $('#order').text(data);
                     urlTalon="/pdf?order="+data+"&spec="+$('#speciality option:selected').text()+"&filial="+$('#med_obeject option:selected').text()+"&time="+timeReserv;
-                    $('.step3 .succes').html("<embed src='"+urlTalon+"' width='300' height='300' type='application/pdf'>");   
-                    console.log(clones);
+                    urlDownload="/pdfdownload?order="+data+"&spec="+$('#speciality option:selected').text()+"&filial="+$('#med_obeject option:selected').text()+"&time="+timeReserv;
+                    $('.step3 .succes').html("<embed src='"+urlTalon+"' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='"+urlDownload+"'>Скачать талон</a></p>");   
+                    
                 },
                 error: function(data){
         

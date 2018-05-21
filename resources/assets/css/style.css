@@ -3,8 +3,8 @@
 
 // Variables
 @import "variables";
-
-
+html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+body{    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 #time {
    margin: auto;
     width: 50%;
