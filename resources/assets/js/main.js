@@ -3,7 +3,10 @@ $( function() {
  var calendar;
  var medObect = {};
  var med_obeject='';
-    $.get("/branch", function (data, status) {
+ var dayWeek=new Date().getDay();
+
+ 
+ $.get("/branch", function (data, status) {
        var obj = $.parseJSON(data);
        select = document.getElementById('med_obeject');
        for (var i = 0; i < obj.length; i++) {
@@ -36,12 +39,14 @@ $( function() {
                                        columnHeader:true,
                                        columnHeaderFormat:'D ddd',
                                        defaultView: 'basicWeek',
+                                       firstDay:dayWeek,
                                       //    contentHeight: 400,
                                       // navLinks: true, // can click day/week names to navigate views
                                       // editable: true,
                                        locale: 'ru',
                                        viewRender: function(view, element) {
-                                           
+                                  
+                                          
                                           //  console.log(view.intervalStart.format());
                                          //   console.log(view.intervalEnd.format());
                                             speciality=document.getElementById('speciality').value;
@@ -109,7 +114,6 @@ $( function() {
                             calendar.fullCalendar( 'removeEvents');
                             calendar.fullCalendar('addEventSource', obj);
                             console.log(obj);
-                            console.log("11111111111");
                        });
                   }); 
 
@@ -120,7 +124,7 @@ $( function() {
                  function getMonday(d) {
                       d = new Date(d);
                       var day = d.getDay(),
-                          diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+                          diff = d.getDate() - day + (day == 0 ? -6:1);
                       return new Date(d.setDate(diff));
                   }      
                   
@@ -128,7 +132,7 @@ $( function() {
                         var d = date.getDate();
                         var m = date.getMonth();
                         var y = new Date(date.getFullYear());
-                        start=getMonday(date); 
+                        start=new Date(); 
                         end=new Date(date.setDate(start.getDate()+6));
                         mm=start.getMonth()+1;
                         return start.getFullYear()+"-"+('0' + mm).slice(-2) +"-"+('0' + start.getDate()).slice(-2);
@@ -137,10 +141,9 @@ $( function() {
                         var d = date.getDate();
                         var m = date.getMonth();
                         var y = new Date(date.getFullYear());
-                        start=getMonday(date); 
+                        start=new Date(); 
                         end=new Date(date.setDate(start.getDate()+6));
                         mm=start.getMonth()+1;
-                        console.log(mm);
                         return end.getFullYear()+"-"+('0' + (mm) ).slice(-2)+"-"+('0' + end.getDate()).slice(-2);
                   }
                 function getDataTime(speciality,start,end,branch){
