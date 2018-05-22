@@ -82,6 +82,8 @@ $(function () {
   var calendar;
   var medObect = {};
   var med_obeject = '';
+  var dayWeek = new Date().getDay();
+
   $.get("/branch", function (data, status) {
     var obj = $.parseJSON(data);
     select = document.getElementById('med_obeject');
@@ -97,13 +99,14 @@ $(function () {
 
   $.get("/specialties", function (data, status) {
     var obj = $.parseJSON(data);
+    console.log(obj);
     select = document.getElementById('speciality');
-    for (var i = 0; i < obj.length; i++) {
+    jQuery.each(obj, function (k, val) {
       var opt = document.createElement('option');
-      opt.value = obj[i].id;
-      opt.innerHTML = obj[i].name;
+      opt.value = val.id;
+      opt.innerHTML = val.name;
       select.appendChild(opt);
-    }
+    });
 
     calendar = $('#calendar').fullCalendar({
       header: {
@@ -114,6 +117,7 @@ $(function () {
       columnHeader: true,
       columnHeaderFormat: 'D ddd',
       defaultView: 'basicWeek',
+      firstDay: dayWeek,
       //    contentHeight: 400,
       // navLinks: true, // can click day/week names to navigate views
       // editable: true,
@@ -185,7 +189,6 @@ $(function () {
         calendar.fullCalendar('removeEvents');
         calendar.fullCalendar('addEventSource', obj);
         console.log(obj);
-        console.log("11111111111");
       });
     });
   });
@@ -193,7 +196,7 @@ $(function () {
   function getMonday(d) {
     d = new Date(d);
     var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+        diff = d.getDate() - day + (day == 0 ? -6 : 1);
     return new Date(d.setDate(diff));
   }
 
@@ -201,7 +204,7 @@ $(function () {
     var d = date.getDate();
     var m = date.getMonth();
     var y = new Date(date.getFullYear());
-    start = getMonday(date);
+    start = new Date();
     end = new Date(date.setDate(start.getDate() + 6));
     mm = start.getMonth() + 1;
     return start.getFullYear() + "-" + ('0' + mm).slice(-2) + "-" + ('0' + start.getDate()).slice(-2);
@@ -210,10 +213,9 @@ $(function () {
     var d = date.getDate();
     var m = date.getMonth();
     var y = new Date(date.getFullYear());
-    start = getMonday(date);
+    start = new Date();
     end = new Date(date.setDate(start.getDate() + 6));
     mm = start.getMonth() + 1;
-    console.log(mm);
     return end.getFullYear() + "-" + ('0' + mm).slice(-2) + "-" + ('0' + end.getDate()).slice(-2);
   }
   function getDataTime(speciality, start, end, branch) {
@@ -317,8 +319,8 @@ $(function () {
           $('.step3').show();
           $('#order').text(data);
           urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_obeject option:selected').text() + "&time=" + timeReserv;
-          $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'>");
-          console.log(clones);
+          urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_obeject option:selected').text() + "&time=" + timeReserv;
+          $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a></p>");
         },
         error: function error(data) {}
       });
