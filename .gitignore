@@ -4,6 +4,9 @@
 # composer vendor dir
 /vendor
 
+# node_modules dir
+/node_modules
+
 # project settings
 .env
 
