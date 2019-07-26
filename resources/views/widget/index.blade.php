@@ -35,7 +35,7 @@
                             <span class="step_title">Шаг - 1</span>
                         </div>
                         <div class="col-md-10">
-                            <select id="med_obeject" style="display: block;">
+                            <select id="med_object" style="display: block;">
                                 <option disabled selected value> -- Выберите медицинский центр --</option>
                             </select>
                         </div>

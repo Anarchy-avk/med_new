@@ -2,12 +2,12 @@ $(function () {
   var timeReserv;
   var calendar;
   var medObect = {};
-  var med_obeject = '';
+  var med_object = '';
   var dayWeek = new Date().getDay();
 
   $.get("/branch", function (data, status) {
     var obj = $.parseJSON(data);
-    select = document.getElementById('med_obeject');
+    select = document.getElementById('med_object');
     for (var i = 0; i < obj.length; i++) {
       var opt = document.createElement('option');
       if (obj[i].code.length > 0) {
@@ -47,7 +47,7 @@ $(function () {
         // console.log(view.intervalStart.format());
         // console.log(view.intervalEnd.format());
         speciality = document.getElementById('speciality').value;
-        branch = document.getElementById('med_obeject').value;
+        branch = document.getElementById('med_object').value;
 
         if (speciality.length > 0 && branch.length > 0) {
           getDataTime(speciality, view.intervalStart.format(), view.intervalEnd.format(), branch);
@@ -55,14 +55,14 @@ $(function () {
       },
       eventClick: function (calEvent, jsEvent, view) {
         worker = $('#worker option:selected').val();
-        med_obeject = $('#med_obeject option:selected').val();
+        med_object = $('#med_object option:selected').val();
         // console.log("----------");
         console.log(calEvent);
         console.log(jsEvent);
         console.log(view);
-        if (med_obeject.length != 0) {
+        if (med_object.length != 0) {
           $('.step1').hide();
-          $('.step2 .address').text($('#med_obeject option:selected').text());
+          $('.step2 .address').text($('#med_object option:selected').text());
           $('.step2 .spec').text($('#speciality option:selected').text());
           $('.step2 .date-time').text(calEvent.start._i);
           $('.step2').show();
@@ -78,9 +78,9 @@ $(function () {
 
     $("#speciality").change(function () {
       speciality = document.getElementById('speciality').value;
-      branch = document.getElementById('med_obeject').value;
+      branch = document.getElementById('med_object').value;
 
-      medObect.branch = document.getElementById("med_obeject").options[document.getElementById('med_obeject').selectedIndex].text;
+      medObect.branch = document.getElementById("med_object").options[document.getElementById('med_object').selectedIndex].text;
       medObect.speciality = document.getElementById("speciality").options[document.getElementById('speciality').selectedIndex].text;
       if (branch.length > 0) {
         var date = new Date();
@@ -95,7 +95,7 @@ $(function () {
     });
 
     $("#worker").change(function () {
-      branch = document.getElementById('med_obeject').value;
+      branch = document.getElementById('med_object').value;
       worker = document.getElementById('worker').value;
       speciality = document.getElementById('speciality').value;
       medObect.worker = document.getElementById("worker").options[document.getElementById('worker').selectedIndex].text;
@@ -243,8 +243,8 @@ $(function () {
           $('.step2').hide();
           $('.step3').show();
           $('#order').text(data);
-          urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_obeject option:selected').text() + "&time=" + timeReserv;
-          urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_obeject option:selected').text() + "&time=" + timeReserv;
+          urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
+          urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
           $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a></p>");
 
         },
