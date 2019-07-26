@@ -160,7 +160,7 @@ class WidgetController extends Controller
         echo json_encode($response);
     }
 
-    public function addClint(Request $request)
+    public function addClient(Request $request)
     {
 
         $input = $request->all();

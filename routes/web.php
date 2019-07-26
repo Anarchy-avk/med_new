@@ -24,5 +24,5 @@ Route::get('/worker', 'WidgetController@getWorker');
 Route::get('/pdf', 'WidgetController@generatePdf');
 Route::get('/pdfdownload', 'WidgetController@generatePdfdownload');
 Route::get('/qrcode', 'WidgetController@generate');
-Route::post('/client', 'WidgetController@addClint');
+Route::post('/client', 'WidgetController@addClient');
 
