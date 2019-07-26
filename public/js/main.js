@@ -123,13 +123,11 @@ module.exports = __webpack_require__(4);
           // editable: true,
           locale: 'ru',
           viewRender: function (view, element) {
-            // console.log(view.intervalStart.format());
-            // console.log(view.intervalEnd.format());
             speciality = document.getElementById('speciality').value;
             branch = document.getElementById('med_object').value;
 
             if (speciality.length > 0 && branch.length > 0) {
-              getDataTime(speciality, view.intervalStart, view.intervalEnd, branch);
+              getDataTime(speciality, view.intervalStart._d, view.intervalEnd._d, branch);
             }
           },
           eventClick: function (calEvent, jsEvent, view) {
