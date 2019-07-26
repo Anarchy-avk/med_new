@@ -50,7 +50,7 @@ $(function () {
         branch = document.getElementById('med_object').value;
 
         if (speciality.length > 0 && branch.length > 0) {
-          getDataTime(speciality, view.intervalStart.format(), view.intervalEnd.format(), branch);
+          getDataTime(speciality, view.intervalStart, view.intervalEnd, branch);
         }
       },
       eventClick: function (calEvent, jsEvent, view) {
@@ -77,35 +77,31 @@ $(function () {
     });
 
     $("#speciality").change(function () {
-      speciality = document.getElementById('speciality').value;
-      branch = document.getElementById('med_object').value;
+      let speciality = document.getElementById('speciality').value;
+      let branch = document.getElementById('med_object').value;
 
       medObect.branch = document.getElementById("med_object").options[document.getElementById('med_object').selectedIndex].text;
       medObect.speciality = document.getElementById("speciality").options[document.getElementById('speciality').selectedIndex].text;
       if (branch.length > 0) {
-        var date = new Date();
-        mm_start = StartDate(date);
-        mm_end = EndDate(date);
-        console.log(mm_start);
-        console.log(mm_end);
-        getDataTime(speciality, mm_start, mm_end, branch, 0);
+        let dateStart = new Date();
+        let dateEnd = (new Date()).addDays(6);
+
+        getDataTime(speciality, dateStart, dateEnd, branch, 0);
       } else {
         alert('Необходимо выбрать специальность врача');
       }
     });
 
     $("#worker").change(function () {
-      branch = document.getElementById('med_object').value;
-      worker = document.getElementById('worker').value;
-      speciality = document.getElementById('speciality').value;
+      let branch = document.getElementById('med_object').value;
+      let worker = document.getElementById('worker').value;
+      let speciality = document.getElementById('speciality').value;
       medObect.worker = document.getElementById("worker").options[document.getElementById('worker').selectedIndex].text;
-      moment = calendar.fullCalendar('getDate');
-      var date = new Date(moment._d);
-      mm_start = StartDate(date);
-      mm_end = EndDate(date);
-      $.get("/datatm?speciality=" + speciality + "&worker=" + worker + "&start=" + mm_start + "&end=" + mm_end + "&branches=" + branch, function (data, status) {
-        obj = $.parseJSON(data);
-        var obj = $.parseJSON(data);
+      let moment = calendar.fullCalendar('getDate');
+      let dateStart = moment._d;
+      let dateEnd = (new Date(dateStart)).addDays(6);
+      $.get("/datatm?speciality=" + speciality + "&worker=" + worker + "&start=" + dateStart.toMysqlString() + "&end=" + dateEnd.toMysqlString() + "&branches=" + branch, function (data, status) {
+        let obj = $.parseJSON(data);
         calendar.fullCalendar('removeEvents');
         calendar.fullCalendar('addEventSource', obj);
         console.log(obj);
@@ -113,35 +109,19 @@ $(function () {
     });
   });
 
-  function getMonday(d) {
-    d = new Date(d);
-    var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6 : 1);
-    return new Date(d.setDate(diff));
+  Date.prototype.toMysqlString = function() {
+    let date = new Date(this.valueOf());
+    return date.toISOString().slice(0, 10);
   }
 
-  function StartDate(date) {
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = new Date(date.getFullYear());
-    start = new Date();
-    end = new Date(date.setDate(start.getDate() + 6));
-    mm = start.getMonth() + 1;
-    return start.getFullYear() + "-" + ('0' + mm).slice(-2) + "-" + ('0' + start.getDate()).slice(-2);
-  }
-
-  function EndDate(date) {
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = new Date(date.getFullYear());
-    start = new Date();
-    end = new Date(date.setDate(start.getDate() + 6));
-    mm = start.getMonth() + 1;
-    return end.getFullYear() + "-" + ('0' + (mm)).slice(-2) + "-" + ('0' + end.getDate()).slice(-2);
+  Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
   }
 
   function getDataTime(speciality, start, end, branch) {
-    $.get("datatm?speciality=" + speciality + "&start=" + start + "&end=" + end + '&branches=' + branch, function (data, status) {
+    $.get("datatm?speciality=" + speciality + "&start=" + start.toMysqlString() + "&end=" + end.toMysqlString() + '&branches=' + branch, function (data, status) {
       obj = $.parseJSON(data);
 
       var obj = $.parseJSON(data);
@@ -257,4 +237,4 @@ $(function () {
     return false;
   });
 
-});  
+});

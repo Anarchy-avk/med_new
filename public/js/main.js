@@ -77,259 +77,246 @@ module.exports = __webpack_require__(4);
 /* 4 */
 /***/ (function(module, exports) {
 
-$(function () {
-  var timeReserv;
-  var calendar;
-  var medObect = {};
-  var med_object = '';
-  var dayWeek = new Date().getDay();
+    $(function () {
+      var timeReserv;
+      var calendar;
+      var medObect = {};
+      var med_object = '';
+      var dayWeek = new Date().getDay();
 
-  $.get("/branch", function (data, status) {
-    var obj = $.parseJSON(data);
-    select = document.getElementById('med_object');
-    for (var i = 0; i < obj.length; i++) {
-      var opt = document.createElement('option');
-      if (obj[i].code.length > 0) {
-        opt.value = obj[i].id;
-        opt.innerHTML = obj[i].description.name;
-        select.appendChild(opt);
-      }
-    }
-  });
-
-  $.get("/specialties", function (data, status) {
-    var obj = $.parseJSON(data);
-    console.log(obj);
-    select = document.getElementById('speciality');
-    jQuery.each(obj, function (k, val) {
-      var opt = document.createElement('option');
-      opt.value = val.id;
-      opt.innerHTML = val.name;
-      select.appendChild(opt);
-    });
-
-    calendar = $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next',
-        center: 'title',
-        right: 'basicWeek'
-      },
-      columnHeader: true,
-      columnHeaderFormat: 'D ddd',
-      defaultView: 'basicWeek',
-      firstDay: dayWeek,
-      //    contentHeight: 400,
-      // navLinks: true, // can click day/week names to navigate views
-      // editable: true,
-      locale: 'ru',
-      viewRender: function viewRender(view, element) {
-
-        //  console.log(view.intervalStart.format());
-        //   console.log(view.intervalEnd.format());
-        speciality = document.getElementById('speciality').value;
-        branch = document.getElementById('med_object').value;
-
-        if (speciality.length > 0 && branch.length > 0) {
-          getDataTime(speciality, view.intervalStart.format(), view.intervalEnd.format(), branch);
-        }
-      },
-      eventClick: function eventClick(calEvent, jsEvent, view) {
-
-        worker = $('#worker option:selected').val();
-        med_object = $('#med_object option:selected').val();
-        // console.log("----------");
-        console.log(calEvent);console.log(jsEvent);console.log(view);
-        if (med_object.length != 0) {
-
-          $('.step1').hide();
-          $('.step2 .address').text($('#med_object option:selected').text());
-          $('.step2 .spec').text($('#speciality option:selected').text());
-          $('.step2 .date-time').text(calEvent.start._i);
-          $('.step2').show();
-          medObect.timetableId = calEvent.id;
-          medObect.timestart = calEvent.start._i;
-          timeReserv = calEvent.start._i;
-          $('input[name=timetableId]').val(calEvent.id);
-        } else {
-          alert("Выберите мед. центр!");
-        }
-      }
-
-    });
-
-    $("#speciality").change(function () {
-      speciality = document.getElementById('speciality').value;
-      branch = document.getElementById('med_object').value;
-
-      medObect.branch = document.getElementById("med_object").options[document.getElementById('med_object').selectedIndex].text;
-      medObect.speciality = document.getElementById("speciality").options[document.getElementById('speciality').selectedIndex].text;
-      if (branch.length > 0) {
-        var date = new Date();
-        mm_start = StartDate(date);
-        mm_end = EndDate(date);
-        console.log(mm_start);console.log(mm_end);
-        getDataTime(speciality, mm_start, mm_end, branch, 0);
-      } else {
-        alert('Выберите филиал...');
-      }
-    });
-
-    $("#worker").change(function () {
-      branch = document.getElementById('med_object').value;
-      worker = document.getElementById('worker').value;
-      speciality = document.getElementById('speciality').value;
-      medObect.worker = document.getElementById("worker").options[document.getElementById('worker').selectedIndex].text;
-      moment = calendar.fullCalendar('getDate');
-      var date = new Date(moment._d);
-      mm_start = StartDate(date);
-      mm_end = EndDate(date);
-      $.get("/datatm?speciality=" + speciality + "&worker=" + worker + "&start=" + mm_start + "&end=" + mm_end + "&branches=" + branch, function (data, status) {
-        obj = $.parseJSON(data);
+      $.get("/branch", function (data, status) {
         var obj = $.parseJSON(data);
-        calendar.fullCalendar('removeEvents');
-        calendar.fullCalendar('addEventSource', obj);
-        console.log(obj);
-      });
-    });
-  });
-
-  function getMonday(d) {
-    d = new Date(d);
-    var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1);
-    return new Date(d.setDate(diff));
-  }
-
-  function StartDate(date) {
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = new Date(date.getFullYear());
-    start = new Date();
-    end = new Date(date.setDate(start.getDate() + 6));
-    mm = start.getMonth() + 1;
-    return start.getFullYear() + "-" + ('0' + mm).slice(-2) + "-" + ('0' + start.getDate()).slice(-2);
-  }
-  function EndDate(date) {
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = new Date(date.getFullYear());
-    start = new Date();
-    end = new Date(date.setDate(start.getDate() + 6));
-    mm = start.getMonth() + 1;
-    return end.getFullYear() + "-" + ('0' + mm).slice(-2) + "-" + ('0' + end.getDate()).slice(-2);
-  }
-  function getDataTime(speciality, start, end, branch) {
-    $.get("datatm?speciality=" + speciality + "&start=" + start + "&end=" + end + '&branches=' + branch, function (data, status) {
-      obj = $.parseJSON(data);
-
-      var obj = $.parseJSON(data);
-      calendar.fullCalendar('removeEvents');
-      calendar.fullCalendar('addEventSource', obj);
-
-      var select = document.getElementById('worker');
-      $('#worker').empty();
-      opt = document.createElement('option');
-      opt.innerHTML = "-- Выберите из списка  --";
-      select.appendChild(opt);
-
-      $.get("worker?speciality=" + speciality + '&branches=' + branch, function (data, status) {
-        obj = $.parseJSON(data);
-        document.getElementById('worker').style.display = 'block';
-
+        select = document.getElementById('med_object');
         for (var i = 0; i < obj.length; i++) {
-          opt = document.createElement('option');
-          opt.value = obj[i].id;
-          opt.innerHTML = obj[i].surname + " " + obj[i].name + " " + obj[i].patronymic;
-          select.appendChild(opt);
+          var opt = document.createElement('option');
+          if (obj[i].code.length > 0) {
+            opt.value = obj[i].id;
+            opt.innerHTML = obj[i].description.name;
+            select.appendChild(opt);
+          }
         }
       });
-    });
-  }
 
-  function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-  $('#send_form').bind('click', function (e) {
-    console.log(medObect);
-    var surname = $('#surname').val();
-    var name = $('#name').val();
-    var patronymic = $('#patronymic').val();
-    var email = $('#email').val();
-    var phone = $('#phone').val();
-    var token = $('#token').val();
-    var timetableId = $('#timetableId').val();
-    var years = document.getElementById('datepicker').value;
+      $.get("/specialties", function (data, status) {
+        var obj = $.parseJSON(data);
+        console.log(obj);
+        select = document.getElementById('speciality');
+        jQuery.each(obj, function (k, val) {
+          var opt = document.createElement('option');
+          opt.value = val.id;
+          opt.innerHTML = val.name;
+          select.appendChild(opt);
+        });
 
-    medObect.phone = phone.id;
+        calendar = $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'basicWeek'
+          },
+          columnHeader: true,
+          columnHeaderFormat: 'D ddd',
+          defaultView: 'basicWeek',
+          firstDay: dayWeek,
+          // contentHeight: 400,
+          // navLinks: true, // can click day/week names to navigate views
+          // editable: true,
+          locale: 'ru',
+          viewRender: function (view, element) {
+            // console.log(view.intervalStart.format());
+            // console.log(view.intervalEnd.format());
+            speciality = document.getElementById('speciality').value;
+            branch = document.getElementById('med_object').value;
 
-    $chek = true;
-    if (surname.length == 0) {
-      $('#surname').css({ 'border': '1px solid red' });
-      $chek = false;
-    } else {
-      $('#surname').css({ 'border': '1px solid #ccd0d2' });
-    }
+            if (speciality.length > 0 && branch.length > 0) {
+              getDataTime(speciality, view.intervalStart, view.intervalEnd, branch);
+            }
+          },
+          eventClick: function (calEvent, jsEvent, view) {
+            worker = $('#worker option:selected').val();
+            med_object = $('#med_object option:selected').val();
+            // console.log("----------");
+            console.log(calEvent);
+            console.log(jsEvent);
+            console.log(view);
+            if (med_object.length != 0) {
+              $('.step1').hide();
+              $('.step2 .address').text($('#med_object option:selected').text());
+              $('.step2 .spec').text($('#speciality option:selected').text());
+              $('.step2 .date-time').text(calEvent.start._i);
+              $('.step2').show();
+              medObect.timetableId = calEvent.id;
+              medObect.timestart = calEvent.start._i;
+              timeReserv = calEvent.start._i;
+              $('input[name=timetableId]').val(calEvent.id);
+            } else {
+              alert("Необходимо выбрать медицинский центр!");
+            }
+          },
+        });
 
-    if (name.length == 0) {
-      $('#name').css({ 'border': '1px solid red' });
-      $chek = false;
-    } else {
-      $('#name').css({ 'border': '1px solid #ccd0d2' });
-    }
+        $("#speciality").change(function () {
+          let speciality = document.getElementById('speciality').value;
+          let branch = document.getElementById('med_object').value;
 
-    if (patronymic.length == 0) {
-      $('#patronymic').css({ 'border': '1px solid red' });
-      $chek = false;
-    } else {
-      $('#patronymic').css({ 'border': '1px solid #ccd0d2' });
-    }
+          medObect.branch = document.getElementById("med_object").options[document.getElementById('med_object').selectedIndex].text;
+          medObect.speciality = document.getElementById("speciality").options[document.getElementById('speciality').selectedIndex].text;
+          if (branch.length > 0) {
+            let dateStart = new Date();
+            let dateEnd = (new Date()).addDays(6);
 
-    if (!validateEmail(email)) {
-      $('#email').css({ 'border': '1px solid red' });
-      $chek = false;
-    } else {
-      $('#email').css({ 'border': '1px solid #ccd0d2' });
-    }
+            getDataTime(speciality, dateStart, dateEnd, branch, 0);
+          } else {
+            alert('Необходимо выбрать специальность врача');
+          }
+        });
 
-    if (phone.length == 0) {
-      $('#phone').css({ 'border': '1px solid red' });
-      $chek = false;
-    } else {
-      $('#phone').css({ 'border': '1px solid #ccd0d2' });
-    }
-    medObect.phone = phone;
-    /*$.ajaxSetup({
-        header:$('meta[name="_token"]').attr('content')
-    })*/
-    $.ajaxSetup({
-      headers: {
-        'X-XSRF-Token': $('meta[name="_token"]').attr('content')
-      }
-    });
-
-    if ($chek) {
-      $.ajax({
-        type: "POST",
-        url: '/client',
-        data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years,
-        dataType: 'json',
-        success: function success(data) {
-          $('.step2').hide();
-          $('.step3').show();
-          $('#order').text(data);
-          urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-          urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-          $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a></p>");
-        },
-        error: function error(data) {}
+        $("#worker").change(function () {
+          let branch = document.getElementById('med_object').value;
+          let worker = document.getElementById('worker').value;
+          let speciality = document.getElementById('speciality').value;
+          medObect.worker = document.getElementById("worker").options[document.getElementById('worker').selectedIndex].text;
+          let moment = calendar.fullCalendar('getDate');
+          let dateStart = moment._d;
+          let dateEnd = (new Date(dateStart)).addDays(6);
+          $.get("/datatm?speciality=" + speciality + "&worker=" + worker + "&start=" + dateStart.toMysqlString() + "&end=" + dateEnd.toMysqlString() + "&branches=" + branch, function (data, status) {
+            let obj = $.parseJSON(data);
+            calendar.fullCalendar('removeEvents');
+            calendar.fullCalendar('addEventSource', obj);
+            console.log(obj);
+          });
+        });
       });
-    } else {
-      alert('Проверте форму');
-    }
-    return false;
-  });
-});
+
+      function getDataTime(speciality, start, end, branch) {
+        $.get("datatm?speciality=" + speciality + "&start=" + start.toMysqlString() + "&end=" + end.toMysqlString() + '&branches=' + branch, function (data, status) {
+          obj = $.parseJSON(data);
+
+          var obj = $.parseJSON(data);
+          calendar.fullCalendar('removeEvents');
+          calendar.fullCalendar('addEventSource', obj);
+
+          var select = document.getElementById('worker');
+          $('#worker').empty();
+          opt = document.createElement('option');
+          opt.innerHTML = "-- Выберите из списка  --";
+          select.appendChild(opt);
+
+          $.get("worker?speciality=" + speciality + '&branches=' + branch, function (data, status) {
+            obj = $.parseJSON(data);
+            document.getElementById('worker').style.display = 'block';
+
+            for (var i = 0; i < obj.length; i++) {
+              opt = document.createElement('option');
+              opt.value = obj[i].id;
+              opt.innerHTML = obj[i].surname + " " + obj[i].name + " " + obj[i].patronymic;
+              select.appendChild(opt);
+            }
+          });
+        });
+      }
+
+      function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      $('#send_form').bind('click', function (e) {
+        console.log(medObect);
+        var surname = $('#surname').val();
+        var name = $('#name').val();
+        var patronymic = $('#patronymic').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var token = $('#token').val();
+        var timetableId = $('#timetableId').val();
+        var years = document.getElementById('datepicker').value;
+
+        medObect.phone = phone.id;
+
+        $chek = true;
+        if (surname.length == 0) {
+          $('#surname').css({'border': '1px solid red'});
+          $chek = false;
+        } else {
+          $('#surname').css({'border': '1px solid #ccd0d2'});
+        }
+
+        if (name.length == 0) {
+          $('#name').css({'border': '1px solid red'});
+          $chek = false;
+        } else {
+          $('#name').css({'border': '1px solid #ccd0d2'});
+        }
+
+        if (patronymic.length == 0) {
+          $('#patronymic').css({'border': '1px solid red'});
+          $chek = false;
+        } else {
+          $('#patronymic').css({'border': '1px solid #ccd0d2'});
+        }
+
+        if (!validateEmail(email)) {
+          $('#email').css({'border': '1px solid red'});
+          $chek = false;
+        } else {
+          $('#email').css({'border': '1px solid #ccd0d2'});
+        }
+
+        if (phone.length == 0) {
+          $('#phone').css({'border': '1px solid red'});
+          $chek = false;
+        } else {
+          $('#phone').css({'border': '1px solid #ccd0d2'});
+        }
+        medObect.phone = phone;
+        /*
+        $.ajaxSetup({
+          header:$('meta[name="_token"]').attr('content')
+        })
+        */
+        $.ajaxSetup({
+          headers: {
+            'X-XSRF-Token': $('meta[name="_token"]').attr('content')
+          }
+        });
+
+        if ($chek) {
+          $.ajax({
+            type: "POST",
+            url: '/client',
+            data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years,
+            dataType: 'json',
+            success: function (data) {
+              $('.step2').hide();
+              $('.step3').show();
+              $('#order').text(data);
+              urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
+              urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
+              $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a></p>");
+
+            },
+            error: function (data) {
+            }
+          })
+        } else {
+          alert('Проверьте форму');
+        }
+        return false;
+      });
+
+      Date.prototype.toMysqlString = function() {
+        let date = new Date(this.valueOf());
+        return date.toISOString().slice(0, 10);
+      }
+
+      Date.prototype.addDays = function(days) {
+        let date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      }
+
+    });
 
 /***/ })
 /******/ ]);
