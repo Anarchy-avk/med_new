@@ -61,8 +61,6 @@
                     <div class="col-md-12 box-calendar">
                         <h3>Свободные талоны</h3>
                         <div id="calendar"></div>
-
-
                     </div>
                 </div>
             </div>
