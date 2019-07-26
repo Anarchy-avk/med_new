@@ -115,37 +115,32 @@
                                                 <div class="form-group">
                                                     <label for="surname" class="label_client">Фамилия</label>
                                                     <input placeholder=" " name="surname" id="surname" type="text"
-                                                           class="form-control">
-
+                                                           class="form-control" value="{{ $last_name }}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="name" class="label_client">Имя</label>
                                                     <input placeholder="" name="name" id="name" type="text"
-                                                           class="form-control">
-
+                                                           class="form-control" value="{{ $first_name }}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="patronymic" class="label_client">Отчество</label>
                                                     <input placeholder="" name="patronymic" id="patronymic" type="text"
-                                                           class="form-control">
-
+                                                           class="form-control" value="{{ $patronymic }}">
                                                 </div>
-
                                                 <div class="form-group">
                                                     <label for="email" class="label_client">Почта</label>
                                                     <input placeholder="" name="email" id="email" type="text"
-                                                           class="form-control">
-
+                                                           class="form-control" value="{{ $email }}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phone" class="label_client">Телефон</label>
                                                     <input placeholder="" name="phone" id="phone" type="text"
-                                                           class="form-control">
+                                                           class="form-control" value="{{ $phone }}">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="years" class="label_client">Ваш день рождения</label>
-                                                    <input type="text" name="years" id="datepicker" class="form-control"
-                                                           value="">
+                                                    <input type="text" name="years" id="datepicker"
+                                                           class="form-control" value="{{ $date_of_birth }}">
                                                 </div>
                                                 <input type="hidden" name="timetableId" id="timetableId" value=""/>
                                                 <input type="hidden" name="_token" id="token"

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Timetable\Api\Type\Order;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 
 class WidgetController extends Controller
 {
@@ -24,16 +25,50 @@ class WidgetController extends Controller
         $this->client = new Timetable\Api\Client(Config::get('medicina.url'), Config::get('medicina.accessToken'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('widget.index');
+        $data = [
+            'last_name' => '',
+            'first_name' => '',
+            'patronymic' => '',
+            'email' => '',
+            'phone' => '',
+            'date_of_birth' => '',
+        ];
+
+        $lastName  = Input::get('last_name');
+        if ($lastName !== null) {
+            $data['last_name'] = $lastName;
+        }
+        $firstName = Input::get('first_name');
+        if ($firstName !== null) {
+            $data['first_name'] = $firstName;
+        }
+        $patronymic = Input::get('patronymic');
+        if ($patronymic !== null) {
+            $data['patronymic'] = $patronymic;
+        }
+        $email = Input::get('email');
+        if ($email !== null) {
+            $data['email'] = $email;
+        }
+        $phone = Input::get('phone');
+        if ($phone !== null) {
+            $data['phone'] = $phone;
+        }
+        $dateOfBirth = Input::get('date_of_birth');
+        if ($dateOfBirth !== null) {
+            $data['date_of_birth'] = $dateOfBirth;
+        }
+
+        return view('widget.index', $data);
     }
 
     public function generate(Request $request, $size = 100, $color = '000000', $background = false)
     {
         header('Content-Type: image/png');
 
-        $response = response()->stream(function () {
+        $response = response()->stream(function () use (&$request, &$size, &$color, &$background) {
             echo Generator::generate($request->get('text'), $size, $color, $background);
         }, 200, ["Content-Type" => 'image/png']);
         return Generator::generate($request->get('text'), $size, $color, $background);
@@ -165,7 +200,7 @@ class WidgetController extends Controller
 
         $input = $request->all();
         $birthDate = Carbon::createFromFormat('Y-m-d', $input['years']);
-        $phone = str_replace(' ', '', preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/", "", $input['phone']));
+        $phone = $this->preparePhone($input['phone']);
         $mutation = (new Timetable\Api\Mutation\CreateOrderWithCustomerMutation())
             ->timetableId((int)$input['timetableId'])
             ->customer((new Timetable\Api\Type\Input\OrderCustomerInput())
@@ -186,5 +221,10 @@ class WidgetController extends Controller
             return;
         }
         echo $order->id;
+    }
+
+    private function preparePhone($phone)
+    {
+        return str_replace(' ', '', preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/", "", $phone));
     }
 }
