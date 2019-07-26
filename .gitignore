@@ -6,3 +6,6 @@
 
 # project settings
 .env
+
+# idea project files
+.idea
