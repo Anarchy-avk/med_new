@@ -171,9 +171,9 @@
         </div>
         <div class="step3">
             <h3>Вы успешно записаны</h3>
-            <div class="succes">
+            <div class="success">
                 <h2>Заказ №<span id="order"></span></h2>
-                <div class="succes-details">
+                <div class="success-details">
 
                 </div>
             </div>

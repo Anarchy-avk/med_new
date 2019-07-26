@@ -1,67 +1,235 @@
-// Fonts
+/* Fonts */
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
+/* Variables */
 @import "variables";
-html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
-body{    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+
+html {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 #time {
-   margin: auto;
-    width: 50%;
-
+	margin: auto;
+	width: 50%;
 }
 
-select {display: block;width: 100%;padding: 10px;color: #74646e;border: 1px solid #C8BFC4;border-radius: 4px;box-shadow: inset 1px 1px 2px #ddd8dc;background: #fff;}
-
-#clear
-{
-    margin:30px auto; 
-    padding:10px; 
-    width: 65%;
-    font-size: 18px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    font-family: 'Roboto Slab', serif;
-    background: #fff;
-    -moz-opacity: 0.95;          
-    -khtml-opacity: 0.95;        
-    opacity: 0.95;  
-    font-weight:normal;
+select {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	color: #74646e;
+	border: 1px solid #C8BFC4;
+	border-radius: 4px;
+	box-shadow: inset 1px 1px 2px #ddd8dc;
+	background: #fff;
 }
-   h1{text-align: center;color: #3b813e;margin: 0; font-size: 35px;}
-  .block-center{ padding-top: 20px ;}
 
-  .block-center .sub-h1{text-align: center; font-size: 20px; color: #2ab7a9;margin-bottom: 10px;}
-  .line-obect{padding-bottom: 10px;}
-  .step_title{display: inline-block; padding-top: 10px;}
-  .box-calendar h3{font-size: 20px!important; text-align: center; line-height: 1!important; margin: 10px 0 5px 0!important; color: #2ab7a9;}
- 
-  #calendar {width: 100%;}
-  #calendar .fc-right{display: none;}
-  #calendar .fc-event-container{text-align: center;padding: 2px 2px;}
-  #calendar .fc-day-grid-event{display: inline-block; background: #cbf5ff; color: #448ccb; margin: 0 auto; padding: 8px 0;width: 100%; border-radius: 0; border: 0;cursor: pointer;}
-  #calendar .fc-day-grid-event:hover{background: #448ccb; color: #cbf5ff;}
-  #calendar .fc-center{display: none;}
-  #calendar button:focus {background-color: transparent;}
-  #calendar .fc-view-container{padding: 0 10px;}
-  #calendar .fc-toolbar.fc-header-toolbar{margin-bottom: 0; position: absolute; width: 100%;    left: 0;}
-  #calendar .fc-toolbar .fc-left{width: 100%; } 
-  #calendar .fc-toolbar .fc-left button{background: transparent;height: auto;margin: 0;padding: 0;border: 0;box-shadow: none;    top: 4px;width: 20px; height: 20px; display: block;}
-  #calendar .fc-toolbar .fc-left .fc-prev-button {left: -10px;}
-  #calendar .fc-toolbar .fc-left .fc-next-button{}
-  #calendar .fc-toolbar .fc-left .fc-corner-right{position: absolute;right: -8px;}
-  #dateTimeText b{text-align: center;display: block;width: 100%;}
-  
-  .title-header{display: block; cursor: pointer; -webkit-tap-highlight-color: transparent; line-height: 1.5; padding: 1rem; background-color: #fff;}
-  .box-calendar{position: relative;}
-  .block-center .step1{ padding: 0px 10px;  }
-  .step2{display: none;}
-  .step2 .row{margin-bottom: 10px;}
-  .step2 h3{  text-transform: uppercase;font-size: 20px!important; text-align: center; line-height: 1!important; margin: 20px 0 20px 0!important; color: #2ab7a9;}
-  .info_title{display: block;font-size:15px;padding-right: 10px;text-align: right;}
-  .item_result {font-size:15px;font-weight: bold;    text-align: left;}
-  #patientText{display: none;}
-  .step3{display: none;}
-  .step3 h3{  text-transform: uppercase;font-size: 20px!important; text-align: center; line-height: 1!important; margin: 20px 0 20px 0!important; color: #2ab7a9;}
-   embed{    margin: 0 auto;display: block;}
-   
-   .succes{text-align: center;}
+#clear {
+	margin: 30px auto;
+	padding: 10px;
+	width: 65%;
+	font-size: 18px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	font-family: 'Roboto Slab', serif;
+	background: #fff;
+	-moz-opacity: 0.95;
+	-khtml-opacity: 0.95;
+	opacity: 0.95;
+	font-weight: normal;
+}
+
+h1 {
+	text-align: center;
+	color: #3b813e;
+	margin: 0;
+	font-size: 35px;
+}
+
+.block-center {
+	padding-top: 20px;
+}
+
+.block-center .sub-h1 {
+	text-align: center;
+	font-size: 20px;
+	color: #2ab7a9;
+	margin-bottom: 10px;
+}
+
+.line-obect {
+	padding-bottom: 10px;
+}
+
+.step_title {
+	display: inline-block;
+	padding-top: 10px;
+}
+
+.box-calendar h3 {
+	font-size: 20px !important;
+	text-align: center;
+	line-height: 1 !important;
+	margin: 10px 0 5px 0 !important;
+	color: #2ab7a9;
+}
+
+#calendar {
+	width: 100%;
+}
+
+#calendar .fc-right {
+	display: none;
+}
+
+#calendar .fc-event-container {
+	text-align: center;
+	padding: 2px 2px;
+}
+
+#calendar .fc-day-grid-event {
+	display: inline-block;
+	background: #cbf5ff;
+	color: #448ccb;
+	margin: 0 auto;
+	padding: 8px 0;
+	width: 100%;
+	border-radius: 0;
+	border: 0;
+	cursor: pointer;
+}
+
+#calendar .fc-day-grid-event:hover {
+	background: #448ccb;
+	color: #cbf5ff;
+}
+
+#calendar .fc-center {
+	display: none;
+}
+
+#calendar button:focus {
+	background-color: transparent;
+}
+
+#calendar .fc-view-container {
+	padding: 0 10px;
+}
+
+#calendar .fc-toolbar.fc-header-toolbar {
+	margin-bottom: 0;
+	position: absolute;
+	width: 100%;
+	left: 0;
+}
+
+#calendar .fc-toolbar .fc-left {
+	width: 100%;
+}
+
+#calendar .fc-toolbar .fc-left button {
+	background: transparent;
+	height: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-shadow: none;
+	top: 4px;
+	width: 20px;
+	height: 20px;
+	display: block;
+}
+
+#calendar .fc-toolbar .fc-left .fc-prev-button {
+	left: -10px;
+}
+
+#calendar .fc-toolbar .fc-left .fc-next-button {
+}
+
+#calendar .fc-toolbar .fc-left .fc-corner-right {
+	position: absolute;
+	right: -8px;
+}
+
+#dateTimeText b {
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+
+.title-header {
+	display: block;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	line-height: 1.5;
+	padding: 1rem;
+	background-color: #fff;
+}
+
+.box-calendar {
+	position: relative;
+}
+
+.block-center .step1 {
+	padding: 0px 10px;
+}
+
+.step2 {
+	display: none;
+}
+
+.step2 .row {
+	margin-bottom: 10px;
+}
+
+.step2 h3 {
+	text-transform: uppercase;
+	font-size: 20px !important;
+	text-align: center;
+	line-height: 1 !important;
+	margin: 20px 0 20px 0 !important;
+	color: #2ab7a9;
+}
+
+.info_title {
+	display: block;
+	font-size: 15px;
+	padding-right: 10px;
+	text-align: right;
+}
+
+.item_result {
+	font-size: 15px;
+	font-weight: bold;
+	text-align: left;
+}
+
+#patientText {
+	display: none;
+}
+
+.step3 {
+	display: none;
+}
+
+.step3 h3 {
+	text-transform: uppercase;
+	font-size: 20px !important;
+	text-align: center;
+	line-height: 1 !important;
+	margin: 20px 0 20px 0 !important;
+	color: #2ab7a9;
+}
+
+embed {
+	margin: 0 auto;
+	display: block;
+}
+
+.success {
+	text-align: center;
+}

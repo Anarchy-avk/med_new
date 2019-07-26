@@ -33,7 +33,7 @@
 </style>
 <div class="step3" style="display: block;">
     <h3>Ваш талон</h3>
-    <div class="succes">
+    <div class="success">
 
         <h2>Заказ №<span id="order">{{ $order }}</span></h2>
 
