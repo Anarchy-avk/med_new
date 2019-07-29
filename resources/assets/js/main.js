@@ -107,12 +107,12 @@ $(function () {
     });
   });
 
-  Date.prototype.toMysqlString = function() {
+  Date.prototype.toMysqlString = function () {
     let date = new Date(this.valueOf());
     return date.toISOString().slice(0, 10);
   }
 
-  Date.prototype.addDays = function(days) {
+  Date.prototype.addDays = function (days) {
     let date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
@@ -215,15 +215,14 @@ $(function () {
       $.ajax({
         type: "POST",
         url: '/client',
-        data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years,
         dataType: 'json',
         success: function (data) {
           $('.step2').hide();
           $('.step3').show();
           $('#order').text(data);
-          urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
+          urlTalon = "/pdf?email=" + email + "&order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
           urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-          $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a></p>");
+          $('.step3 .succes').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a><br><a href='/cancel'>Cancel Order </a></p>");
 
         },
         error: function (data) {

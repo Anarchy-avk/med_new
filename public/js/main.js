@@ -283,7 +283,7 @@ module.exports = __webpack_require__(4);
           $.ajax({
             type: "POST",
             url: '/client',
-            data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years,
+            data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv,
             dataType: 'json',
             success: function (data) {
               $('.step2').hide();
@@ -291,7 +291,7 @@ module.exports = __webpack_require__(4);
               $('#order').text(data);
               urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
               urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-              $('.step3 .success').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a></p>");
+              $('.step3 .success').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a><br><a href='/cancel'>Отменить заказ</a></p>");
 
             },
             error: function (data) {
@@ -303,12 +303,12 @@ module.exports = __webpack_require__(4);
         return false;
       });
 
-      Date.prototype.toMysqlString = function() {
+      Date.prototype.toMysqlString = function () {
         let date = new Date(this.valueOf());
         return date.toISOString().slice(0, 10);
       }
 
-      Date.prototype.addDays = function(days) {
+      Date.prototype.addDays = function (days) {
         let date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;

@@ -14,6 +14,9 @@ use Timetable\Api\Type\Order;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
+use App\Mail\OrderShipped;
+use Mail;
+use Session;
 
 class WidgetController extends Controller
 {
@@ -36,7 +39,7 @@ class WidgetController extends Controller
             'date_of_birth' => '',
         ];
 
-        $lastName  = Input::get('last_name');
+        $lastName = Input::get('last_name');
         if ($lastName !== null) {
             $data['last_name'] = $lastName;
         }
@@ -101,6 +104,17 @@ class WidgetController extends Controller
 
         $pdf = PDF::loadView('widget.talon', $data);
         echo $pdf->download('talon.pdf');
+    }
+
+    public function sendMail($to, $attachment)
+    {
+        $content = array(
+            'name' => "",
+            'message' => "Thank you for your booking.",
+            'link' => '',
+            'path' => $attachment
+        );
+        Mail::to($to)->send(new OrderShipped($content));
     }
 
     public function getBranch()
@@ -216,15 +230,48 @@ class WidgetController extends Controller
         try {
             /* @var $order Order */
             $order = $this->client->mutation($mutation);
+            $data = [
+                'order' => $order->id,
+                'filial' => $input['filial'],
+                'spec' => $input['spec'],
+                'time' => $input['time'],
+                'qRcode' => Config::get('app.url') . '/qrcode?text=' . $order->id,
+            ];
+
+            $pdf = PDF::loadView('widget.talon', $data);
+            $path = public_path() . '/' . time() . ".pdf";
+            $pdf->save($path);
+            $this->sendMail($input['email'], $path);
+            session(['order' => $order->id]);
+            echo $order->id;
         } catch (ResponseContainsErrors $e) {
             Log::warning(print_r($e->getErrors(), true));
             return;
         }
-        echo $order->id;
+
     }
 
     private function preparePhone($phone)
     {
         return str_replace(' ', '', preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/", "", $phone));
+    }
+
+    public function cancel(Request $request)
+    {
+
+        try {
+            $order_id = $request->session()->get('order');
+            $mutation = (new Timetable\Api\Mutation\CancelReservedOrderMutation())
+                ->orderId($order_id);
+            /* @var $order Order */
+            $order = $this->client->mutation($mutation);
+            Session::flash('success', "Заказ №$order_id успешно отменен");
+        } catch (ResponseContainsErrors $e) {
+            $error = $e->getMessage();
+            Session::flash('error', "$error");
+            Log::warning(print_r($e->getErrors(), true));
+        }
+        return redirect('widget');
+
     }
 }
