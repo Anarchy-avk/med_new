@@ -15,7 +15,7 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-		"timetable/api-client": "^0.2.7",
+		"timetable/api-client": "0.4.1",
         "carlos-meneses/laravel-mpdf": "^1.0",
         "Nathanmac/qr-code": "1.*"
     },
