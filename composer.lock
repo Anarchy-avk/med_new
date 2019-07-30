@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b17932131f06b43d3a174d8934ec5a5",
+    "content-hash": "1cd066a0d01271e91f1115b835d9bcc3",
     "packages": [
         {
             "name": "carlos-meneses/laravel-mpdf",
@@ -880,22 +880,22 @@
         },
         {
             "name": "laravel/tinker",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "cafbf598a90acde68985660e79b2b03c5609a405"
+                "reference": "eb0075527fdeeb1cc1d68bd4ca7d50256b30a827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/cafbf598a90acde68985660e79b2b03c5609a405",
-                "reference": "cafbf598a90acde68985660e79b2b03c5609a405",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/eb0075527fdeeb1cc1d68bd4ca7d50256b30a827",
+                "reference": "eb0075527fdeeb1cc1d68bd4ca7d50256b30a827",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "~5.1",
-                "illuminate/contracts": "~5.1",
-                "illuminate/support": "~5.1",
+                "illuminate/console": "~5.1|^6.0",
+                "illuminate/contracts": "~5.1|^6.0",
+                "illuminate/support": "~5.1|^6.0",
                 "php": ">=5.5.9",
                 "psy/psysh": "0.7.*|0.8.*|0.9.*",
                 "symfony/var-dumper": "~3.0|~4.0"
@@ -939,7 +939,7 @@
                 "laravel",
                 "psysh"
             ],
-            "time": "2018-10-12T19:39:35+00:00"
+            "time": "2019-07-29T18:09:25+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3065,11 +3065,11 @@
         },
         {
             "name": "timetable/api-client",
-            "version": "0.4.1",
+            "version": "0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.megamag.by/timetable/api-client.git",
-                "reference": "86b78e5de9d31d46f31f1ca617e7ec4ab2a1d8b6"
+                "reference": "82981eb74cb466e62281c01527805d2f5b4e414c"
             },
             "require": {
                 "guzzlehttp/guzzle": "~6.0",
@@ -3084,7 +3084,7 @@
                 }
             },
             "description": "Timetable GraphQL API client library for PHP.",
-            "time": "2019-05-28T08:21:28+00:00"
+            "time": "2019-07-30T06:38:03+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
