@@ -106,12 +106,12 @@ class WidgetController extends Controller
         echo $pdf->download('talon.pdf');
     }
 
-    public function sendMail($to, $attachment)
+    public function sendMail($to, $attachment, $cancel_order_link)
     {
         $content = array(
             'name' => "",
-            'message' => "Thank you for your booking.",
-            'link' => '',
+            'message' => "Thank you for your booking. You can cancel your booking by clicking the link given below.",
+            'link' => $cancel_order_link,
             'path' => $attachment
         );
         Mail::to($to)->send(new OrderShipped($content));
@@ -241,7 +241,8 @@ class WidgetController extends Controller
             $pdf = PDF::loadView('widget.talon', $data);
             $path = public_path() . '/' . time() . ".pdf";
             $pdf->save($path);
-            $this->sendMail($input['email'], $path);
+            $cancel_order_link = url('cancel/' . $order->id);
+            $this->sendMail($input['email'], $path, $cancel_order_link);
             session(['order' => $order->id]);
             echo $order->id;
         } catch (ResponseContainsErrors $e) {
@@ -258,9 +259,11 @@ class WidgetController extends Controller
 
     public function cancel(Request $request)
     {
-
         try {
             $order_id = $request->session()->get('order');
+            $id = (int)$request->id;
+            if ($id)
+                $order_id = $id;
             $mutation = (new Timetable\Api\Mutation\CancelReservedOrderMutation())
                 ->orderId($order_id);
             /* @var $order Order */
