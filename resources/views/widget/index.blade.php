@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link rel="stylesheet" href="/css/fullcalendar.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/bootstrap.js"></script>
@@ -21,7 +22,19 @@
     <script src="/js/fullcalendar/fullcalendar.js"></script>
     <script src="/js/fullcalendar/locale-all.js"></script>
     <script src="/js/main.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+   
 </head>
+<style>
+    
+#reload{
+    float: right;
+    font-size: 33px;
+    color: black;
+    margin-right: 29px;
+}
+
+</style>
 <body>
 <div class="container-fluid" id="app">
     <div class="row">
@@ -78,8 +91,8 @@
             <div class="step2">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Подтверждения записи</h3>
-                        <div class="info_block">
+                        <h3> <i class="fas fa-arrow-left" id="back" style="float:left; font-size: 42px;"></i> Подтверждения записи</h3>
+                        <div class="info_block" style="float: left;">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="info_title">Адрес:</label>
@@ -121,44 +134,53 @@
                                     <meta name="_token" content="{{ csrf_token() }}"/>
                                     <form id="customer" id="sign-up" action="/client" method="post">
                                         <div class="row ">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="surname" class="label_client">Фамилия</label>
                                                     <input placeholder=" " name="surname" id="surname" type="text"
                                                            class="form-control" value="{{ $last_name }}">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="name" class="label_client">Имя</label>
-                                                    <input placeholder="" name="name" id="name" type="text"
-                                                           class="form-control" value="{{ $first_name }}">
-                                                </div>
+                                                
                                                 <div class="form-group">
                                                     <label for="patronymic" class="label_client">Отчество</label>
                                                     <input placeholder="" name="patronymic" id="patronymic" type="text"
                                                            class="form-control" value="{{ $patronymic }}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="email" class="label_client">Почта</label>
-                                                    <input placeholder="" name="email" id="email" type="text"
-                                                           class="form-control" value="{{ $email }}">
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="phone" class="label_client">Телефон</label>
                                                     <input placeholder="" name="phone" id="phone" type="text"
                                                            class="form-control" value="{{ $phone }}">
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="years" class="label_client">Ваш день рождения</label>
-                                                    <input type="text" name="years" id="datepicker"
-                                                           class="form-control" value="{{ $date_of_birth }}">
+                                                    <label for="name" class="label_client">Имя</label>
+                                                    <input placeholder="" name="name" id="name" type="text"
+                                                           class="form-control" value="{{ $first_name }}">
+                                                </div>
+                                                
+                                                
+                                                <div class="form-group">
+                                                    <label for="years" class="label_client">Ваш день рождения</label> <br>
+                                                    <label>год</label>
+                                                    <input type="text" name="years" id="year" value="{{ $date_of_birth }}" placeholder="2000" style="width: 59px; padding: 4px;text-align: center;" required>
+                                                    <label>месяц</label>
+                                                    <input type="text" name="month" id="month" value="{{ $date_of_birth }}" placeholder="01" style="width: 59px; padding: 4px;text-align: center;" required>
+                                                    <label>дней</label>
+                                                    <input type="text" name="days" id="days" value="{{ $date_of_birth }}" placeholder="01" style="width: 59px; padding: 4px;text-align: center;" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email" class="label_client">Почта</label>
+                                                    <input placeholder="" name="email" id="email" type="text"
+                                                           class="form-control" value="{{ $email }}">
                                                 </div>
                                                 <input type="hidden" name="timetableId" id="timetableId" value=""/>
                                                 <input type="hidden" name="_token" id="token"
                                                        value="{{ csrf_token() }}">
                                             </div>
                                             <div id="confirm">
-                                                <div style="width: 100%; text-align: center;"><br>
-                                                    <div class="btn btn-success" style="width: 100%;" id="send_form">
+                                                <div style="width: 67%; text-align: center;"><br>
+                                                    <div class="btn btn-success" style="width: 40%; float: right;" id="send_form">
                                                         Получить талон
                                                     </div>
                                                 </div>
@@ -175,7 +197,7 @@
             </div>
         </div>
         <div class="step3">
-            <h3>Вы успешно записаны</h3>
+            <h3>Вы успешно записаны <i id="reload" class="fas fa-redo-alt"></i></h3>
             <div class="success">
                 <h2>Заказ №<span id="order"></span></h2>
                 <div class="success-details">
@@ -194,19 +216,78 @@
     if ($('input[name=phone]').length > 0) {
       $('input[name=phone]').mask('+375(00)000-00-00');
     }
-    $('#datepicker').datetimepicker({
-      format: 'Y-m-d',
-      lang: 'ru',
-      i18n: {
-        ru: {
-          months: [
-            'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август',
-            'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',],
-          dayOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб',],
-        }
-      },
-      timepicker: false,
+
+    if ($('input[name=years]').length > 0) {
+      $('input[name=years]').mask('0000');
+    }
+
+    if ($('input[name=month]').length > 0) {
+      $('input[name=month]').mask('00');
+    }
+
+    if ($('input[name=days]').length > 0) {
+      $('input[name=days]').mask('00');
+    }
+
+    // $('#days').datetimepicker({
+    //   // changeMonth: true,
+    //   //   changeYear: true,
+    //   //   showButtonPanel: true,
+    //     dateFormat: 'dd',
+    //   lang: 'ru',
+    //   i18n: {
+    //     ru: {
+    //       months: [
+    //         'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август',
+    //         'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',],
+    //       dayOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб',],
+    //     }
+    //   },
+    //   timepicker: false,
+    // });
+
+    // $('#month').datetimepicker({
+    //     changeMonth: true,
+    //     showButtonPanel: true,
+    //   format: 'm',
+    //   lang: 'ru',
+    //   i18n: {
+    //     ru: {
+    //       months: [
+    //         'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август',
+    //         'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',],
+    //       dayOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб',],
+    //     }
+    //   },
+    //   timepicker: false,
+    // });
+
+    // $('#year').datetimepicker({
+    //     changeYear: true,  
+    //     showButtonPanel: true,      
+    //   format: 'Y',
+    //   lang: 'ru',
+    //   i18n: {
+    //     ru: {
+    //       months: [
+    //         'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август',
+    //         'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',],
+    //       dayOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб',],
+    //     }
+    //   },
+    //   timepicker: false,
+    // });
+
+    $('#reload').click( function(){
+        location.reload();
     });
+     
+     $('#back').click( function(){
+        $('.step2').hide();
+        $('.step1').show();
+     });
+      
+     
   });
 </script>
 </html>

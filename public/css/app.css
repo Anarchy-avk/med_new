@@ -7375,6 +7375,10 @@ button.close {
   margin: 10px;
 }
 
+.dialog{
+      width: 100% !important;
+}
+
 .modal-content {
   position: relative;
   background-color: #fff;

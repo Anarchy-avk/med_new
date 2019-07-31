@@ -83,7 +83,7 @@ module.exports = __webpack_require__(4);
       var medObect = {};
       var med_object = '';
       var dayWeek = new Date().getDay();
-
+      $("#med_object").LoadingOverlay("show");
       $.get("/branch", function (data, status) {
         var obj = $.parseJSON(data);
         select = document.getElementById('med_object');
@@ -95,8 +95,15 @@ module.exports = __webpack_require__(4);
             select.appendChild(opt);
           }
         }
+      })
+      .done(function() {
+        $("#med_object").LoadingOverlay("hide");
+      })
+      .fail(function() {
+        $("#med_object").LoadingOverlay("hide"); 
       });
-
+      $("#speciality").LoadingOverlay("show");
+      $("#calendar").css('margin-top','250px').LoadingOverlay("show");
       $.get("/specialties", function (data, status) {
         var obj = $.parseJSON(data);
         console.log(obj);
@@ -129,6 +136,7 @@ module.exports = __webpack_require__(4);
             if (speciality.length > 0 && branch.length > 0) {
               getDataTime(speciality, view.intervalStart._d, view.intervalEnd._d, branch);
             }
+            $("#calendar").css('margin-top','20px').LoadingOverlay("hide");
           },
           eventClick: function (calEvent, jsEvent, view) {
             worker = $('#worker option:selected').val();
@@ -184,9 +192,16 @@ module.exports = __webpack_require__(4);
             console.log(obj);
           });
         });
+      })
+      .done(function() {
+        $("#speciality").LoadingOverlay("hide");
+      })
+      .fail(function() {
+        $("#speciality").LoadingOverlay("hide"); 
       });
 
       function getDataTime(speciality, start, end, branch) {
+        $("#calendar").LoadingOverlay("show");
         $.get("datatm?speciality=" + speciality + "&start=" + start.toMysqlString() + "&end=" + end.toMysqlString() + '&branches=' + branch, function (data, status) {
           obj = $.parseJSON(data);
 
@@ -199,7 +214,7 @@ module.exports = __webpack_require__(4);
           opt = document.createElement('option');
           opt.innerHTML = "-- Выберите из списка  --";
           select.appendChild(opt);
-
+          $("#worker").LoadingOverlay("show");
           $.get("worker?speciality=" + speciality + '&branches=' + branch, function (data, status) {
             obj = $.parseJSON(data);
             document.getElementById('worker').style.display = 'block';
@@ -210,7 +225,19 @@ module.exports = __webpack_require__(4);
               opt.innerHTML = obj[i].surname + " " + obj[i].name + " " + obj[i].patronymic;
               select.appendChild(opt);
             }
+          })
+          .done(function() {
+            $("#worker").LoadingOverlay("hide");
+          })
+          .fail(function() {
+            $("#worker").LoadingOverlay("hide"); 
           });
+        })
+        .done(function() {
+          $("#calendar").LoadingOverlay("hide");
+        })
+        .fail(function() {
+          $("#calendar").LoadingOverlay("hide"); 
         });
       }
 
@@ -228,7 +255,10 @@ module.exports = __webpack_require__(4);
         var phone = $('#phone').val();
         var token = $('#token').val();
         var timetableId = $('#timetableId').val();
-        var years = document.getElementById('datepicker').value;
+        var day = $('#days').val();
+        var month = $('#month').val();
+        var year = $('#year').val();        
+        var years = year+'-' + month+'-' + day;
 
         medObect.phone = phone.id;
 
@@ -280,21 +310,24 @@ module.exports = __webpack_require__(4);
         });
 
         if ($chek) {
+          $.LoadingOverlay("show");
           $.ajax({
             type: "POST",
             url: '/client',
             data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv,
             dataType: 'json',
             success: function (data) {
+              $.LoadingOverlay("hide");
               $('.step2').hide();
               $('.step3').show();
               $('#order').text(data);
               urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
               urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-              $('.step3 .success').html("<embed src='" + urlTalon + "' width='300' height='300' type='application/pdf'><p style='text-align: center;'><a href='" + urlDownload + "'>Скачать талон</a><br><a href='/cancel'>Отменить заказ</a></p>");
+              $('.step3 .success').html("<embed src='" + urlTalon + "' width='600px' height='600px' type='application/pdf'><p style='text-align: center; margin-top: 15px;'><a class='btn btn-success' style='margin-right: 30px;' href='" + urlDownload + "'>Скачать талон</a><a class='btn btn-danger' href='/cancel'>Отменить заказ</a></p>");
 
             },
             error: function (data) {
+              $.LoadingOverlay("hide");
             }
           })
         } else {
