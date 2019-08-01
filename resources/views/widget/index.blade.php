@@ -170,13 +170,11 @@
                                                     <select name="year" id="year" style="width: 65px; padding: 4px;text-align: center;" required>
                                                         <?php 
                                                             $year = date("Y");
-                                                            for ($i=1900; $i<= $year ; $i++) { 
-                                                        ?> 
-
-                                                        <option value={{$i}}>{{$i}}</option>
-
-                                                    <?php } ?>
-                                                      </select>
+                                                            for ($i = $year; $i >= ($year - 120) ; $i--) {
+                                                        ?>
+                                                        <option value={{ $i }}>{{ $i }}</option>
+                                                        <?php } ?>
+                                                    </select>
                                                     <label>месяц</label>
                                                     <select name="month" id="month" style="width: 65px; padding: 4px;text-align: center;" required>
 
