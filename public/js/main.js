@@ -255,9 +255,9 @@ module.exports = __webpack_require__(4);
         var phone = $('#phone').val();
         var token = $('#token').val();
         var timetableId = $('#timetableId').val();
-        var day = $('#days').val();
-        var month = $('#month').val();
-        var year = $('#year').val();        
+        var day = $('#days').children("option:selected").val();
+        var month = $('#month').children("option:selected").val();
+        var year = $('#year').children("option:selected").val();        
         var years = year+'-' + month+'-' + day;
 
         medObect.phone = phone.id;

@@ -18,7 +18,7 @@ body {
 }
 
 select {
-	display: block;
+	display: initial;
 	width: 100%;
 	padding: 10px;
 	color: #74646e;

@@ -8354,3 +8354,39 @@ button.close {
   }
 }
 
+@media (max-width: 976px){
+  .col-md-6 {
+    float: left;
+    width: 50% !important;
+  }
+  .col-sm-6 {
+    float: right;
+    width: 50% !important;
+  }
+  .label_client input {
+    width: unset !important;
+  }
+  #cust-form > input {
+    /*width: 296px !important;
+    margin: 7px !important;*/
+     width: 100% !important;
+     display: flex;
+  }
+  #name {
+    margin: 0 !important;
+  }
+  #cust-form {
+    margin: 0 !important;
+  }
+  #cust-row {
+    clear: both;
+  }
+  .cust-lable {
+    display: flex;
+    flex-direction: column;
+  }
+  .cust-lable select {
+    width: 100% !important;
+  }
+}
+   

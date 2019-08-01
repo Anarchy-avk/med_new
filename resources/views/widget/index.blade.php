@@ -32,6 +32,9 @@
     font-size: 33px;
     color: black;
     margin-right: 29px;
+    position: absolute;
+    top: 25px;
+    left: 14px;
 }
 
 </style>
@@ -91,7 +94,7 @@
             <div class="step2">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3> <i class="fas fa-arrow-left" id="back" style="float:left; font-size: 42px;"></i> Подтверждения записи</h3>
+                       <div><i class="fas fa-arrow-left" id="back" style="float:left; font-size: 42px;position: absolute;top: -56px;"></i></div> <h3>Подтверждения записи</h3>
                         <div class="info_block" style="float: left;">
                             <div class="row">
                                 <div class="col-md-6">
@@ -133,8 +136,8 @@
                                     </div>
                                     <meta name="_token" content="{{ csrf_token() }}"/>
                                     <form id="customer" id="sign-up" action="/client" method="post">
-                                        <div class="row ">
-                                            <div class="col-md-6">
+                                        <div class="row" id="cust-row">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="surname" class="label_client">Фамилия</label>
                                                     <input placeholder=" " name="surname" id="surname" type="text"
@@ -156,18 +159,80 @@
                                                 <div class="form-group">
                                                     <label for="name" class="label_client">Имя</label>
                                                     <input placeholder="" name="name" id="name" type="text"
-                                                           class="form-control" value="{{ $first_name }}">
+                                                           class="form-control" value="{{ $first_name }}" style="margin-bottom: 21px;">
                                                 </div>
                                                 
                                                 
-                                                <div class="form-group">
-                                                    <label for="years" class="label_client">Ваш день рождения</label> <br>
+                                                <div class="form-group" id="cust-form">
+                                                    <label for="years" class="label_client">Ваш день рождения</label> <!-- <br> -->
+                                                    <div class="cust-lable">
                                                     <label>год</label>
-                                                    <input type="text" name="years" id="year" value="{{ $date_of_birth }}" placeholder="2000" style="width: 59px; padding: 4px;text-align: center;" required>
+                                                    <select name="year" id="year" style="width: 65px; padding: 4px;text-align: center;" required>
+                                                        <?php 
+                                                            $year = date("Y");
+                                                            for ($i=1900; $i<= $year ; $i++) { 
+                                                        ?> 
+
+                                                        <option value={{$i}}>{{$i}}</option>
+
+                                                    <?php } ?>
+                                                      </select>
                                                     <label>месяц</label>
-                                                    <input type="text" name="month" id="month" value="{{ $date_of_birth }}" placeholder="01" style="width: 59px; padding: 4px;text-align: center;" required>
+                                                    <select name="month" id="month" style="width: 65px; padding: 4px;text-align: center;" required>
+
+                                                        <option value=01>01</option>
+                                                        <option value=02>02</option>
+                                                        <option value=03>03</option>
+                                                        <option value=04>04</option>
+                                                        <option value=05>05</option>
+                                                        <option value=06>06</option>
+                                                        <option value=07>07</option>
+                                                        <option value=08>08</option>
+                                                        <option value=09>09</option>
+                                                        <option value=10>10</option>
+                                                        <option value=11>11</option>
+                                                        <option value=12>12</option>
+
+                                                      </select>
+                                            
                                                     <label>дней</label>
-                                                    <input type="text" name="days" id="days" value="{{ $date_of_birth }}" placeholder="01" style="width: 59px; padding: 4px;text-align: center;" required>
+                                                    <select name="days" id="days" style="width: 65px; padding: 4px;text-align: center;" required>  
+
+                                                        <option value=01>01</option>
+                                                        <option value=02>02</option>
+                                                        <option value=03>03</option>
+                                                        <option value=04>04</option>
+                                                        <option value=05>05</option>
+                                                        <option value=06>06</option>
+                                                        <option value=07>07</option>
+                                                        <option value=08>08</option>
+                                                        <option value=09>09</option>
+                                                        <option value=10>10</option>
+                                                        <option value=11>11</option>
+                                                        <option value=12>12</option>
+                                                        <option value=13>13</option>
+                                                        <option value=14>14</option>
+                                                        <option value=15>15</option>
+                                                        <option value=16>16</option>
+                                                        <option value=17>17</option>
+                                                        <option value=18>18</option>
+                                                        <option value=19>19</option>
+                                                        <option value=20>20</option>
+                                                        <option value=21>21</option>
+                                                        <option value=22>22</option>
+                                                        <option value=23>23</option>
+                                                        <option value=24>24</option>
+                                                        <option value=25>25</option>
+                                                        <option value=26>26</option>
+                                                        <option value=27>27</option>
+                                                        <option value=28>28</option>
+                                                        <option value=29>29</option>
+                                                        <option value=30>30</option>
+                                                        <option value=31>31</option>
+
+
+                                                      </select>
+                                                      </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="email" class="label_client">Почта</label>
