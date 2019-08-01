@@ -8383,10 +8383,15 @@ button.close {
   }
   .cust-lable {
     display: flex;
-    flex-direction: column;
   }
   .cust-lable select {
     width: 100% !important;
+    margin-left: 3px;
   }
+/*
+  .send_form {
+    float: right !important;
+  }
+*/
 }
    

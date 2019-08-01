@@ -95,7 +95,7 @@
                 <div class="row">
                     <div class="col-md-12">
                        <div><i class="fas fa-arrow-left" id="back" style="float:left; font-size: 42px;position: absolute;top: -56px;"></i></div> <h3>Подтверждения записи</h3>
-                        <div class="info_block" style="float: left;">
+                        <div class="info_block">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label class="info_title">Адрес:</label>
@@ -164,9 +164,9 @@
                                                 
                                                 
                                                 <div class="form-group" id="cust-form">
-                                                    <label for="years" class="label_client">Ваш день рождения</label> <!-- <br> -->
+                                                    <label for="years" class="label_client">Ваш день рождения (год, месяц, день)</label> <!-- <br> -->
                                                     <div class="cust-lable">
-                                                    <label>год</label>
+                                                    <label></label>
                                                     <select name="year" id="year" style="width: 65px; padding: 4px;text-align: center;" required>
                                                         <?php 
                                                             $year = date("Y");
@@ -175,7 +175,7 @@
                                                         <option value={{ $i }}>{{ $i }}</option>
                                                         <?php } ?>
                                                     </select>
-                                                    <label>месяц</label>
+                                                    <label></label>
                                                     <select name="month" id="month" style="width: 65px; padding: 4px;text-align: center;" required>
 
                                                         <option value=01>01</option>
@@ -193,7 +193,7 @@
 
                                                       </select>
                                             
-                                                    <label>дней</label>
+                                                    <label></label>
                                                     <select name="days" id="days" style="width: 65px; padding: 4px;text-align: center;" required>  
 
                                                         <option value=01>01</option>
@@ -242,8 +242,8 @@
                                                        value="{{ csrf_token() }}">
                                             </div>
                                             <div id="confirm">
-                                                <div style="width: 67%; text-align: center;"><br>
-                                                    <div class="btn btn-success" style="width: 40%; float: right;" id="send_form">
+                                                <div style="width: 67%; text-align: center;float: left;"><br>
+                                                    <div class="btn btn-success" style="float: right;" id="send_form">
                                                         Получить талон
                                                     </div>
                                                 </div>
