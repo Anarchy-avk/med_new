@@ -29,7 +29,7 @@
     
 #reload{
     float: right;
-    font-size: 33px;
+    font-size: 26px;
     color: black;
     margin-right: 29px;
     position: absolute;
@@ -94,7 +94,7 @@
             <div class="step2">
                 <div class="row">
                     <div class="col-md-12">
-                       <div><i class="fas fa-arrow-left" id="back" style="float:left; font-size: 42px;position: absolute;top: -56px;"></i></div> <h3>Подтверждения записи</h3>
+                       <div><i class="fas fa-arrow-left" id="back" style="float:left; font-size: 26px;position: absolute;top: -56px;"></i></div> <h3>Подтверждения записи</h3>
                         <div class="info_block">
                             <div class="row">
                                 <div class="col-md-6">
@@ -137,7 +137,7 @@
                                     <meta name="_token" content="{{ csrf_token() }}"/>
                                     <form id="customer" id="sign-up" action="/client" method="post">
                                         <div class="row" id="cust-row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6" style="padding-left:5px;">
                                                 <div class="form-group">
                                                     <label for="surname" class="label_client">Фамилия</label>
                                                     <input placeholder=" " name="surname" id="surname" type="text"
@@ -155,7 +155,7 @@
                                                            class="form-control" value="{{ $phone }}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" style="padding-right:5px;">
                                                 <div class="form-group">
                                                     <label for="name" class="label_client">Имя</label>
                                                     <input placeholder="" name="name" id="name" type="text"
@@ -164,10 +164,10 @@
                                                 
                                                 
                                                 <div class="form-group" id="cust-form">
-                                                    <label for="years" class="label_client">Ваш день рождения (год, месяц, день)</label> <!-- <br> -->
-                                                    <div class="cust-lable">
+                                                    <label for="years" class="label_client">Ваш день рождения</label> <!-- <br> -->
+                                                    <div class="cust-lable" style="margin-bottom: 15px;">
                                                     <label></label>
-                                                    <select name="year" id="year" style="width: 65px; padding: 4px;text-align: center;" required>
+                                                    <select name="year" id="year" style="width: 65px; padding: 8px;text-align: center;" required>
                                                         <?php 
                                                             $year = date("Y");
                                                             for ($i = $year; $i >= ($year - 120) ; $i--) {
@@ -176,7 +176,7 @@
                                                         <?php } ?>
                                                     </select>
                                                     <label></label>
-                                                    <select name="month" id="month" style="width: 65px; padding: 4px;text-align: center;" required>
+                                                    <select name="month" id="month" style="width: 65px;padding: 8px;text-align: center;" required>
 
                                                         <option value=01>01</option>
                                                         <option value=02>02</option>
@@ -194,7 +194,7 @@
                                                       </select>
                                             
                                                     <label></label>
-                                                    <select name="days" id="days" style="width: 65px; padding: 4px;text-align: center;" required>  
+                                                    <select name="days" id="days" style="width: 65px; padding: 8px;text-align: center;" required>  
 
                                                         <option value=01>01</option>
                                                         <option value=02>02</option>
@@ -242,7 +242,7 @@
                                                        value="{{ csrf_token() }}">
                                             </div>
                                             <div id="confirm">
-                                                <div style="width: 67%; text-align: center;float: left;"><br>
+                                                <div style="width: 63%; text-align: center; float: left;"><br>
                                                     <div class="btn btn-success" style="float: right;" id="send_form">
                                                         Получить талон
                                                     </div>
