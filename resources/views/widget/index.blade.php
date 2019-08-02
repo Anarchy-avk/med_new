@@ -13,7 +13,8 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link rel="stylesheet" href="/css/fullcalendar.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/bootstrap.js"></script>
@@ -23,19 +24,19 @@
     <script src="/js/fullcalendar/locale-all.js"></script>
     <script src="/js/main.js"></script>
     <script src="//cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
-   
+
 </head>
 <style>
-    
-#reload{
-    float: right;
-    font-size: 26px;
-    color: black;
-    margin-right: 29px;
-    position: absolute;
-    top: 25px;
-    left: 14px;
-}
+
+    #reload {
+        float: right;
+        font-size: 33px;
+        color: black;
+        margin-right: 29px;
+        position: absolute;
+        top: 25px;
+        left: 14px;
+    }
 
 </style>
 <body>
@@ -94,29 +95,31 @@
             <div class="step2">
                 <div class="row">
                     <div class="col-md-12">
-                       <div><i class="fas fa-arrow-left" id="back" style="float:left; font-size: 26px;position: absolute;top: -56px;"></i></div> <h3>Подтверждения записи</h3>
+                        <div><i class="fas fa-arrow-left" id="back"
+                                style="float:left; font-size: 26px;position: absolute;top: -56px;"></i></div>
+                        <h3>Подтверждения записи</h3>
                         <div class="info_block">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="cust-left">
                                     <label class="info_title">Адрес:</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="cust-left">
                                     <div class="address item_result"></div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="cust-left">
                                     <label class="info_title">Специальность:</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="cust-left">
                                     <div id="specialityText" class="spec item_result"></div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="cust-left">
                                     <label class="info_title">Дата и время:</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="cust-left">
                                     <div class="date-time item_result"></div>
                                 </div>
                             </div>
@@ -136,30 +139,44 @@
                                     </div>
                                     <meta name="_token" content="{{ csrf_token() }}"/>
                                     <form id="customer" id="sign-up" action="/client" method="post">
-                                        <div class="row" id="cust-row" style="padding-left: 5px; padding-right: 5px;">
-                                            <div class="row">
-                                                <div class="form-group col-sm-6">
+                                        <div class="row" id="cust-row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
                                                     <label for="surname" class="label_client">Фамилия</label>
                                                     <input placeholder=" " name="surname" id="surname" type="text"
                                                            class="form-control" value="{{ $last_name }}">
                                                 </div>
-                                                <div class="form-group col-sm-6">
+                                                <div class="form-group">
                                                     <label for="name" class="label_client">Имя</label>
                                                     <input placeholder="" name="name" id="name" type="text"
-                                                           class="form-control" value="{{ $first_name }}" style="margin-bottom: 21px;">
+                                                           class="form-control" value="{{ $first_name }}">
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-6">
+                                                <div class="form-group">
                                                     <label for="patronymic" class="label_client">Отчество</label>
                                                     <input placeholder="" name="patronymic" id="patronymic" type="text"
                                                            class="form-control" value="{{ $patronymic }}">
                                                 </div>
-                                                <div class="form-group col-sm-6" id="cust-form">
-                                                    <label for="years" class="label_client">Ваш день рождения</label> <!-- <br> -->
-                                                    <div class="cust-lable" style="margin-bottom: 15px;">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="phone" class="label_client">Телефон</label>
+                                                    <input placeholder="" name="phone" id="phone" type="text"
+                                                           class="form-control" value="{{ $phone }}"
+                                                           style="margin-bottom: 21px;">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email" class="label_client">Почта</label>
+                                                    <input placeholder="" name="email" id="email" type="text"
+                                                           class="form-control" value="{{ $email }}">
+                                                </div>
+                                                <div class="form-group" id="cust-form">
+                                                    <label for="years" class="label_client">Ваш день рождения (год,
+                                                        месяц, дней)</label> <!-- <br> -->
+                                                    <div class="cust-lable">
                                                         <label></label>
-                                                        <select name="year" id="year" style="width: 65px; padding: 8px;text-align: center;" required>
+                                                        <select name="year" id="year"
+                                                                style="width: 65px; padding: 4px;text-align: center;"
+                                                                required>
                                                             <?php
                                                             $year = date("Y");
                                                             for ($i = $year; $i >= ($year - 120) ; $i--) {
@@ -168,7 +185,9 @@
                                                             <?php } ?>
                                                         </select>
                                                         <label></label>
-                                                        <select name="month" id="month" style="width: 65px;padding: 8px;text-align: center;" required>
+                                                        <select name="month" id="month"
+                                                                style="width: 65px; padding: 4px;text-align: center;"
+                                                                required>
                                                             <option value=01>01</option>
                                                             <option value=02>02</option>
                                                             <option value=03>03</option>
@@ -183,7 +202,9 @@
                                                             <option value=12>12</option>
                                                         </select>
                                                         <label></label>
-                                                        <select name="days" id="days" style="width: 65px; padding: 8px;text-align: center;" required>
+                                                        <select name="days" id="days"
+                                                                style="width: 65px; padding: 4px;text-align: center;"
+                                                                required>
                                                             <option value=01>01</option>
                                                             <option value=02>02</option>
                                                             <option value=03>03</option>
@@ -218,25 +239,13 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" name="timetableId" id="timetableId" value=""/>
+                                                <input type="hidden" name="_token" id="token"
+                                                       value="{{ csrf_token() }}">
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-6">
-                                                    <label for="phone" class="label_client">Телефон</label>
-                                                    <input placeholder="" name="phone" id="phone" type="text"
-                                                           class="form-control" value="{{ $phone }}">
-                                                </div>
-                                                <div class="form-group col-sm-6">
-                                                    <label for="email" class="label_client">Почта</label>
-                                                    <input placeholder="" name="email" id="email" type="text"
-                                                           class="form-control" value="{{ $email }}">
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="timetableId" id="timetableId" value=""/>
-                                            <input type="hidden" name="_token" id="token"
-                                                   value="{{ csrf_token() }}">
                                             <div id="confirm">
-                                                <div style="width: 63%; text-align: center; float: left;"><br>
-                                                    <div class="btn btn-success" style="float: right;" id="send_form">
+                                                <div style="width: 100%; text-align: center;float: left;"><br>
+                                                    <div class="btn btn-success" id="send_form">
                                                         Получить талон
                                                     </div>
                                                 </div>
@@ -334,16 +343,16 @@
     //   timepicker: false,
     // });
 
-    $('#reload').click( function(){
-        location.reload();
+    $('#reload').click(function () {
+      location.reload();
     });
-     
-     $('#back').click( function(){
-        $('.step2').hide();
-        $('.step1').show();
-     });
-      
-     
+
+    $('#back').click(function () {
+      $('.step2').hide();
+      $('.step1').show();
+    });
+
+
   });
 </script>
 </html>

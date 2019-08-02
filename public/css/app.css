@@ -8355,13 +8355,19 @@ button.close {
 }
 
 @media (max-width: 976px){
-  .col-md-6 {
+/*  .col-md-6 {
     float: left;
     width: 50% !important;
   }
   .col-sm-6 {
     float: right;
     width: 50% !important;
+  }*/
+  #cust-left {
+    float: left !important;
+  }
+  #cust-left label {
+    padding: 0 !important;
   }
   .label_client input {
     width: unset !important;
@@ -8385,13 +8391,11 @@ button.close {
     display: flex;
   }
   .cust-lable select {
-    width: 100% !important;
-    margin-left: 3px;
+   /* width: 100% !important;*/
+        margin-left: 3px;
   }
-/*
-  .send_form {
+/*  .send_form {
     float: right !important;
   }
-*/
-}
+*/}
    
