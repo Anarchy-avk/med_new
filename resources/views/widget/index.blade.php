@@ -30,11 +30,11 @@
 
     #reload {
         float: right;
-        font-size: 33px;
+        font-size: 22px;
         color: black;
         margin-right: 29px;
         position: absolute;
-        top: 25px;
+        top: 27px;
         left: 14px;
     }
 
@@ -96,7 +96,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div><i class="fas fa-arrow-left" id="back"
-                                style="float:left; font-size: 26px;position: absolute;top: -56px;"></i></div>
+                                style="float:left; font-size: 20px;position: absolute;top: -50px;"></i></div>
                         <h3>Подтверждения записи</h3>
                         <div class="info_block">
                             <div class="row">
