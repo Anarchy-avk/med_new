@@ -1,8 +1,6 @@
-// Fonts
+/* Fonts */
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
-@import "variables";
 html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 body{    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 #time {
