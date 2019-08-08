@@ -5,24 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>widget</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/app.css">
-    <link rel="stylesheet" href="/css/fullcalendar.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    <title>Widget</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:100,600">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.datetimepicker.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/fullcalendar/moment.min.js"></script>
-    <script src="/js/fullcalendar/fullcalendar.js"></script>
-    <script src="/js/fullcalendar/locale-all.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/moment.min.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/fullcalendar.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/locale-all.js') }}"></script>
+    <script src="{{ asset('js/main.js')  }}"></script>
     <script src="//cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
 
 </head>
@@ -261,13 +261,10 @@
                 </div>
             </div>
         </div>
-        <div class="step3">
+        <div class="step3" style="width: 600px; height: 600px; margin-left: auto; margin-right: auto">
             <h3>Вы успешно записаны <i id="reload" class="fas fa-redo-alt"></i></h3>
             <div class="success">
-                <h2>Заказ №<span id="order"></span></h2>
-                <div class="success-details">
 
-                </div>
             </div>
         </div>
     </div>

@@ -244,7 +244,13 @@ class WidgetController extends Controller
             $cancel_order_link = url('cancel/' . $order->id);
             $this->sendMail($input['email'], $path, $cancel_order_link);
             session(['order' => $order->id]);
-            echo $order->id;
+
+            $result['result'] = 'success';
+            $result['order_id'] = $order->id;
+            $result['ticket_html'] = view('widget.talon', $data)->render();
+
+            return json_encode($result);
+
         } catch (ResponseContainsErrors $e) {
             Log::warning(print_r($e->getErrors(), true));
             return;
@@ -276,5 +282,10 @@ class WidgetController extends Controller
         }
         return redirect('widget');
 
+    }
+
+    public function test(Request $request)
+    {
+        return view('widget.test');
     }
 }

@@ -316,15 +316,18 @@ module.exports = __webpack_require__(4);
             url: '/client',
             data: "surname=" + surname + '&name=' + name + '&patronymic=' + patronymic + '&email=' + email + '&phone=' + phone + '&_token=' + token + '&timetableId=' + timetableId + '&years=' + years + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv,
             dataType: 'json',
+            /**
+             * @param {{result:string}} data
+             * @param {{order_id:int}} data
+             * @param {{ticket_html:string}} data
+             */
             success: function (data) {
               $.LoadingOverlay("hide");
               $('.step2').hide();
               $('.step3').show();
-              $('#order').text(data);
-              urlTalon = "/pdf?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-              urlDownload = "/pdfdownload?order=" + data + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
-              $('.step3 .success').html("<embed src='" + urlTalon + "' width='600px' height='600px' type='application/pdf'><p style='text-align: center; margin-top: 15px;'><a class='btn btn-success' style='margin-right: 30px;' href='" + urlDownload + "'>Скачать талон</a><a class='btn btn-danger' href='/cancel'>Отменить заказ</a></p>");
-
+              $('#order').text(data.order_id);
+              let urlDownload = "/pdfdownload?order=" + data.order_id + "&spec=" + $('#speciality option:selected').text() + "&filial=" + $('#med_object option:selected').text() + "&time=" + timeReserv;
+              $('.step3 .success').html(data.ticket_html + "<p style='text-align: center; margin-top: 15px;'><a class='btn btn-success' style='margin-right: 30px;' href='" + urlDownload + "'>Скачать талон</a><a class='btn btn-danger' href='/cancel'>Отменить заказ</a></p>");
             },
             error: function (data) {
               $.LoadingOverlay("hide");
@@ -339,13 +342,13 @@ module.exports = __webpack_require__(4);
       Date.prototype.toMysqlString = function () {
         let date = new Date(this.valueOf());
         return date.toISOString().slice(0, 10);
-      }
+      };
 
       Date.prototype.addDays = function (days) {
         let date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
-      }
+      };
 
     });
 

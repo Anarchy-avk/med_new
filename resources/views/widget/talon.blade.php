@@ -32,8 +32,8 @@
     }
 </style>
 
-<div class="step3" style="display: block;">
-    <img class="alignnone size-full" src="{{ asset('img/talon-logo-top.png') }}" alt="">
+<div style="display: block;">
+    <img class="img-fluid" src="{{ asset('img/talon-logo-top.png') }}" alt="">
     <br/>
     <h2>Заказ №<span id="order">{{ $order }}</span></h2>
     <h3>Талон на прием к врачу</h3>
@@ -60,8 +60,8 @@
             <td>
                 <img src="{{ $qRcode }}" />
             </td>
-        </tr>>
+        </tr>
     </table>
     <br/>
-    <img class="alignnone size-full" src="{{ asset('img/talon-logo-bottom.png') }}" alt="">
+    <img class="img-fluid" src="{{ asset('img/talon-logo-bottom.png') }}" alt="">
 </div>
