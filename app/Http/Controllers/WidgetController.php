@@ -148,32 +148,27 @@ class WidgetController extends Controller
 
     public function getDataTime(Request $request)
     {
-
         $input = $request->all();
         $speciality[0] = (int)$request->input('speciality');
         $worker[0] = (int)$request->input('worker');
         $branches[0] = (int)$request->input('branches');
         $start = $request->input('start');
         $end = $request->input('end');
-        $newformatMin = Carbon::createFromFormat('Y-m-d', $start);
-        $newformatMax = Carbon::createFromFormat('Y-m-d', $end);
+        $newFormatMin = Carbon::createFromFormat('Y-m-d', $start);
+        $newFormatMax = Carbon::createFromFormat('Y-m-d', $end);
 
-        if ($worker[0] === 0) {
-            $query1 = (new Timetable\Api\Query\TimetablesQuery())
-                ->dateMin($newformatMin)
-                ->dateMax($newformatMax)
-                ->specialties($speciality)
-                ->branches($branches);
-        } else {
-            $query1 = (new Timetable\Api\Query\TimetablesQuery())
-                ->dateMin($newformatMin)
-                ->dateMax($newformatMax)
-                ->workers($worker)
-                ->specialties($speciality)
-                ->branches($branches);
+        $query = (new Timetable\Api\Query\TimetablesQuery())
+            ->dateMin($newFormatMin)
+            ->dateMax($newFormatMax)
+            ->specialties($speciality)
+            ->branches($branches);
+
+        if ($worker[0] !== 0) {
+            $query = $query->workers($worker);
         }
+
         try {
-            $timetables = $this->client->query($query1);
+            $timetables = $this->client->query($query);
         } catch (ResponseContainsErrors $e) {
             Log::warning(print_r($e->getErrors(), true));
             return;
@@ -202,9 +197,14 @@ class WidgetController extends Controller
 
         $query = (new Timetable\Api\Query\WorkersQuery())
             ->branches($branches)
-            ->specialties($speciality);
-
-        $response = $this->client->query($query);
+            ->specialties($speciality)
+        ;
+        try {
+            $response = $this->client->query($query);
+        } catch (ResponseContainsErrors $e) {
+            Log::warning(print_r($e->getErrors(), true));
+            return null;
+        }
 
         echo json_encode($response);
     }
@@ -253,7 +253,7 @@ class WidgetController extends Controller
 
         } catch (ResponseContainsErrors $e) {
             Log::warning(print_r($e->getErrors(), true));
-            return;
+            return null;
         }
 
     }
