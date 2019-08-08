@@ -16,14 +16,14 @@
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/locale-all.js') }}"></script>
+    <script src="{{ asset('js/loadingoverlay.min.js') }}"></script>
     <script src="{{ asset('js/main.js')  }}"></script>
-    <script src="//cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
 
 </head>
 <style>
