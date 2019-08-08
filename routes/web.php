@@ -25,3 +25,4 @@ Route::post('/client', 'WidgetController@addClient');
 Route::get('/cancel/{id}', 'WidgetController@cancel');
 Route::get('/cancel', 'WidgetController@cancel');
 
+Route::get('/test', 'WidgetController@test');
