@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cd066a0d01271e91f1115b835d9bcc3",
+    "content-hash": "3937a62c61b051ff6f1372e5712c81c5",
     "packages": [
         {
             "name": "carlos-meneses/laravel-mpdf",
@@ -3065,11 +3065,11 @@
         },
         {
             "name": "timetable/api-client",
-            "version": "0.4.2",
+            "version": "0.4.4",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.megamag.by/timetable/api-client.git",
-                "reference": "82981eb74cb466e62281c01527805d2f5b4e414c"
+                "reference": "e096572a9522412df95e6f72d1dbab9fa6410164"
             },
             "require": {
                 "guzzlehttp/guzzle": "~6.0",
@@ -3084,7 +3084,7 @@
                 }
             },
             "description": "Timetable GraphQL API client library for PHP.",
-            "time": "2019-07-30T06:38:03+00:00"
+            "time": "2019-08-09T12:25:54+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3354,16 +3354,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2"
+                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
-                "reference": "0eb0b48c3f07b3b89f5169ce005b7d05b18cf1d2",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/4eff936d83eb809bde2c57a3cea0ee9643769031",
+                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031",
                 "shasum": ""
             },
             "require": {
@@ -3415,7 +3415,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2019-02-13T09:37:52+00:00"
+            "time": "2019-08-07T15:01:07+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4872,7 +4872,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
