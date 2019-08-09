@@ -3069,7 +3069,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.megamag.by/timetable/api-client.git",
-                "reference": "31694a79152b50f5601d2c6cfb6e6703b29a2d18"
+                "reference": "d44d3ad8146e208c6cbcffe949b77e66e4a49e5c"
             },
             "require": {
                 "guzzlehttp/guzzle": "~6.0",
@@ -3084,7 +3084,7 @@
                 }
             },
             "description": "Timetable GraphQL API client library for PHP.",
-            "time": "2019-08-09T13:03:48+00:00"
+            "time": "2019-08-09T13:19:59+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
